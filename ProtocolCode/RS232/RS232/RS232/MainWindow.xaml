@@ -1,0 +1,63 @@
+﻿<Window x:Class="RS232.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="400" Width="525"
+        Background="Lavender">
+    <Window.Resources>
+        <XmlDataProvider x:Key="ComPorts" Source="CommsData.xml" XPath="/Comms/Ports" />
+        <XmlDataProvider x:Key="ComSpeed" Source="CommsData.xml" XPath="/Comms/Baud" />
+    </Window.Resources>
+    <Grid Width="400">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="191*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" TextAlignment="Left" Text="PORT" FontWeight="DemiBold"/>
+        <ComboBox Grid.Column="1" Grid.Row="0" Name="Comm_Port_Names" HorizontalAlignment="Left" MinWidth="130" ItemsSource="{Binding Source={StaticResource ComPorts}}" />
+        <Button Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Content="Connect" Click="Connect_Comms" FontWeight="DemiBold" Name="Connect_btn" Height="18" Width="70">
+            <Button.BorderBrush>
+                <RadialGradientBrush>
+                    <GradientStop Color="SkyBlue" Offset="0.017" />
+                    <GradientStop Color="#FFD1CFCF" Offset="1" />
+                </RadialGradientBrush>
+            </Button.BorderBrush>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="SkyBlue" Offset="0" />
+                    <GradientStop Color="#9BFFFFFF" Offset="1" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+
+        <TextBlock Grid.Row="1" TextAlignment="Left" Text="BAUD RATE" FontWeight="DemiBold"/>
+        <ComboBox Grid.Column="1" Grid.Row="1" Name="Baud_Rates" HorizontalAlignment="Stretch" Text="Select..." ItemsSource="{Binding Source={StaticResource ComSpeed}}" />
+
+        <TextBlock Text="WRITE DATA" Grid.Column="0" Grid.Row="2" TextAlignment="Left" FontWeight="DemiBold"/>
+        <TextBox Name ="SerialData" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextAlignment="Center"  MinWidth="150" />
+        <Button Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Content="Write" FontWeight="DemiBold" Click="Send_Data" Height="18" Width="50">
+            <Button.BorderBrush>
+                <RadialGradientBrush>
+                    <GradientStop Color="SkyBlue" Offset="0.017" />
+                    <GradientStop Color="#FFD1CFCF" Offset="1" />
+                </RadialGradientBrush>
+            </Button.BorderBrush>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="SkyBlue" Offset="0" />
+                    <GradientStop Color="#9BFFFFFF" Offset="1" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="RECEIVED DATA" TextAlignment="left" FontWeight="DemiBold"/>
+        <RichTextBox Grid.Column="1" Grid.Row="3" Name="Commdata"/>
+
+    </Grid>
+</Window>
